@@ -1,9 +1,11 @@
+using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Miki.Services.Identity;
 using Miki.Services.Identity.DbContexts;
 using Miki.Services.Identity.Initialazer;
 using Miki.Services.Identity.Models;
+using Miki.Services.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ var identityBuilder = builder.Services.AddIdentityServer(options =>
 identityBuilder.AddDeveloperSigningCredential();
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 
 var app = builder.Build();

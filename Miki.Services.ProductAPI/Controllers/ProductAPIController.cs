@@ -17,7 +17,7 @@ namespace Miki.Services.ProductAPI.Controllers
             this._response = new ResponseDto();
         }
 
-        [Authorize]
+        
         [HttpGet]
         public async Task<object> Get()
         {
@@ -36,8 +36,7 @@ namespace Miki.Services.ProductAPI.Controllers
             return _response;
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet]  
         [Route("{id}")]
         public async Task<object> Get(int id)
         {

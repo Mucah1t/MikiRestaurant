@@ -59,6 +59,9 @@ namespace IdentityServerHost.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _roleManager = roleInManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -231,18 +234,28 @@ namespace IdentityServerHost.Quickstart.UI
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
 		{
-			ViewData["ReturnUrl"] = returnUrl;
+            model.Roles = new List<string> { "Admin", "Customer" };
+            ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)
 			{
 
-				var user = new ApplicationUser
-				{
-					UserName = model.Username,
-					Email = model.Email,
-					EmailConfirmed = true,
-					FirstName = model.FirstName,
-					LastName = model.LastName
-				};
+                var user = new ApplicationUser
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    EmailConfirmed = true,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = "5554251524",
+                    PhoneNumberConfirmed = true,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 5,
+                    NormalizedEmail = (model.Email).ToUpper(),
+                    NormalizedUserName = (model.Username).ToUpper(),
+                    LockoutEnd= DateTime.Now,
+                    //PasswordHash = "hashedPassword"
+                };
 
 				var result = await _userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
@@ -306,16 +319,14 @@ namespace IdentityServerHost.Quickstart.UI
 
 				}
 			}
-
-			// If we got this far, something failed, redisplay form
-			return View(model);
+           
+            // If we got this far, something failed, redisplay form
+            return View(model);
 		}
 		private async Task<RegisterViewModel> BuildRegisterViewModelAsync(string returnUrl)
 		{
 			var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-			List<string> roles = new List<string>();
-			roles.Add("Admin");
-			roles.Add("Customer");
+			var roles = new List<string> { "Admin", "Customer" };
 			ViewBag.message = roles;
 			if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
 			{
@@ -327,7 +338,8 @@ namespace IdentityServerHost.Quickstart.UI
 					EnableLocalLogin = local,
 					ReturnUrl = returnUrl,
 					Username = context?.LoginHint,
-				};
+                    Roles = roles
+                };
 
 				if (!local)
 				{
@@ -368,8 +380,9 @@ namespace IdentityServerHost.Quickstart.UI
 				EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
 				ReturnUrl = returnUrl,
 				Username = context?.LoginHint,
-				ExternalProviders = providers.ToArray()
-			};
+				ExternalProviders = providers.ToArray(),
+                Roles = roles
+            };
 		}
 
 		/*****************************************/

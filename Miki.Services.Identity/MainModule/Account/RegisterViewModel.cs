@@ -17,8 +17,9 @@ namespace Miki.Services.Identity.MainModule.Account
 
 		public string ReturnUrl { get; set; }
 		public string RoleName { get; set; }
+        public List<string> Roles { get; set; }
 
-		public bool AllowRememberLogin { get; set; } = true;
+        public bool AllowRememberLogin { get; set; } = true;
 		public bool EnableLocalLogin { get; set; } = true;
 
 		public IEnumerable<ExternalProvider> ExternalProviders { get; set; } = Enumerable.Empty<ExternalProvider>();

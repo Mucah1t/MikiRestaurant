@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Miki.MessageBus;
 using Miki.Services.ShoppingCartAPI;
 using Miki.Services.ShoppingCartAPI.DbContexts;
 using Miki.Services.ShoppingCartAPI.Repository;
@@ -17,6 +18,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication("Bearer")

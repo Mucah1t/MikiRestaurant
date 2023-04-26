@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Miki.MessageBus;
 using Miki.Services.ShoppingCartAPI.Message;
 using Miki.Services.ShoppingCartAPI.Models.DTO;
 using Miki.Services.ShoppingCartAPI.Repository;
@@ -10,10 +11,12 @@ namespace Miki.Services.ShoppingCartAPI.Controllers
     public class CartAPIController : Controller
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
-        public CartAPIController(ICartRepository cartRepository)
+        public CartAPIController(ICartRepository cartRepository, IMessageBus messageBus)
         {
             _cartRepository = cartRepository;
+            _messageBus = messageBus;
             this._response = new ResponseDto(); 
         }
         [HttpPost("GetCart/{userId}")]
@@ -119,6 +122,7 @@ namespace Miki.Services.ShoppingCartAPI.Controllers
                 {
                     return BadRequest();
                 }
+                await _messageBus.PublishMessage(checkoutHeader, "checkoutmessagetopic");
 
                 //if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
                 //{

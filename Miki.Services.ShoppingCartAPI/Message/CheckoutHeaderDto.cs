@@ -1,8 +1,9 @@
-﻿using Miki.Services.ShoppingCartAPI.Models.DTO;
+﻿using Miki.MessageBus;
+using Miki.Services.ShoppingCartAPI.Models.DTO;
 
 namespace Miki.Services.ShoppingCartAPI.Message
 {
-    public class CheckoutHeaderDto
+    public class CheckoutHeaderDto : BaseMessage
     {
         public int CartHeaderId { get; set; }
         public string UserId { get; set; }

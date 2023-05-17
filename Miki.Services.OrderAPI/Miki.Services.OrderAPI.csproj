@@ -23,4 +23,8 @@
     <Folder Include="Messages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Miki.MessageBus\Miki.MessageBus.csproj" />
+  </ItemGroup>
+
 </Project>

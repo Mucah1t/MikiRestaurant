@@ -1,0 +1,10 @@
+﻿using Miki.Services.ShoppingCartAPI.Models.DTO;
+
+namespace Miki.Services.ShoppingCartAPI.Repository
+{
+    public interface ICouponRepository
+    {
+        Task<CouponDto> GetCoupon(string couponName);
+
+    }
+}

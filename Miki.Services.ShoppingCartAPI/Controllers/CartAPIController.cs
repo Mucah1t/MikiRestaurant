@@ -11,13 +11,15 @@ namespace Miki.Services.ShoppingCartAPI.Controllers
     public class CartAPIController : Controller
     {
         private readonly ICartRepository _cartRepository;
+        private readonly ICouponRepository _couponRepository;
         private readonly IMessageBus _messageBus;
         protected ResponseDto _response;
-        public CartAPIController(ICartRepository cartRepository, IMessageBus messageBus)
+        public CartAPIController(ICartRepository cartRepository, IMessageBus messageBus, ICouponRepository couponRepository)
         {
             _cartRepository = cartRepository;
             _messageBus = messageBus;
-            this._response = new ResponseDto(); 
+            this._response = new ResponseDto();
+            _couponRepository = couponRepository;   
         }
         [HttpPost("GetCart/{userId}")]
         public async Task<object> GetCart(string userId)
@@ -124,17 +126,17 @@ namespace Miki.Services.ShoppingCartAPI.Controllers
                 }
                 await _messageBus.PublishMessage(checkoutHeader, "checkoutmessagetopic");
 
-                //if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
-                //{
-                //    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeader.CouponCode);
-                //    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
-                //    {
-                //        _response.IsSuccess = false;
-                //        _response.ErrorMessages = new List<string>() { "Coupon Price has changed, please confirm" };
-                //        _response.DisplayMessage = "Coupon Price has changed, please confirm";
-                //        return _response;
-                //    }
-                //}
+                if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponRepository.GetCoupon(checkoutHeader.CouponCode);
+                    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                    {
+                        _response.IsSuccess = false;
+                        _response.ErrorMessages = new List<string>() { "Coupon Price has changed, please confirm" };
+                        _response.DisplayMessage = "Coupon Price has changed, please confirm";
+                        return _response;
+                    }
+                }
 
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.

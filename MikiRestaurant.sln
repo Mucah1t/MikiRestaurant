@@ -29,7 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "Payment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Miki.Services.PaymentAPI", "Miki.Services.PaymentAPI\Miki.Services.PaymentAPI.csproj", "{272C104B-7109-4423-9911-E74A62383618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miki.Services.Email", "Miki.Services.Email\Miki.Services.Email.csproj", "{B8547537-01A2-432D-B555-F4C1ECEBF149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Miki.Services.Email", "Miki.Services.Email\Miki.Services.Email.csproj", "{B8547537-01A2-432D-B555-F4C1ECEBF149}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{DB99AB4D-9E99-41C0-A8E5-F8B819025128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miki.GatewaySolution", "Miki.GatewaySolution\Miki.GatewaySolution.csproj", "{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +81,10 @@ Global
 		{B8547537-01A2-432D-B555-F4C1ECEBF149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8547537-01A2-432D-B555-F4C1ECEBF149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8547537-01A2-432D-B555-F4C1ECEBF149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +101,7 @@ Global
 		{4AE9C699-4B46-41CB-8F99-2E8430F55CB0} = {A0474E6A-6352-45C3-8AC8-01FD438DBE7F}
 		{272C104B-7109-4423-9911-E74A62383618} = {07A95130-9F24-4156-A397-814080946A4A}
 		{B8547537-01A2-432D-B555-F4C1ECEBF149} = {07A95130-9F24-4156-A397-814080946A4A}
+		{C3470BDB-CCBA-4284-B6A5-8CE3887FBA56} = {DB99AB4D-9E99-41C0-A8E5-F8B819025128}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {11A916C8-94E9-45F5-B11D-7C7E86C38ADD}

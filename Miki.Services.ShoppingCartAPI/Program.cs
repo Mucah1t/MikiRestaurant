@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Miki.MessageBus;
 using Miki.Services.ShoppingCartAPI;
 using Miki.Services.ShoppingCartAPI.DbContexts;
+using Miki.Services.ShoppingCartAPI.RabbitMQSender;
 using Miki.Services.ShoppingCartAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
+builder.Services.AddSingleton<IRabbitMQCartMessageSender, RabbitMQCartMessageSender>();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<ICouponRepository, CouponRepository>(u => u.BaseAddress =
               new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
